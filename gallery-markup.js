@@ -11,7 +11,7 @@ galleryContainer.insertAdjacentHTML("beforeend", imagesMarkup);
 
 galleryContainer.addEventListener('click', onGalleryContainerClick);
 button.addEventListener('click', removeActiveImage);
-modalEl.addEventListener("click", closeLightbox);
+modalEl.addEventListener("click", removeActiveImage);
 
   function createImagesGalleryMarkup(images) {
     return images.map(({preview, original, description}) => {
@@ -51,20 +51,11 @@ modalEl.addEventListener("click", closeLightbox);
   };
 
   function removeActiveImage(evt) {
-    const currentActiveImage = document.querySelector('.js-lightbox.is-open');
-
-    if (currentActiveImage) {
-      currentActiveImage.classList.remove('is-open');
-    }
-
+    lightboxEl.classList.remove('is-open');
+  
     lightboxImg.src = '';
+    
     window.removeEventListener("keydown", pressOnKey);
-  };
-
-  function closeLightbox(evt) {
-    if (evt.target === evt.currentTarget) {
-      removeActiveImage(evt);
-    }
   };
   
   function pressOnKey(evt) {
